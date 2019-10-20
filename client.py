@@ -16,7 +16,7 @@ while (input() != "exit"):
 	data = sock.recv(1024)
 	print(data.decode())
 	print("Если вы хотите прервать соединение с сервером, введите \"exit\"")
-
+sock.send("stop".encode())
 sock.close()
 
 
