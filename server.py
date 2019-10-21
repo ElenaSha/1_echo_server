@@ -1,25 +1,28 @@
 import socket
 
+f = open('server.log','a') 
+
 sock = socket.socket()
-print("Запуск сервера")
+f.write("Запуск сервера\n")
 
 code = ""
 
 
+
 sock.bind(('', 13245))
-print("Начало прослушивания порта")
+f.write("Начало прослушивания порта\n")
 sock.listen(1)
 
 while True:
 	conn, addr = sock.accept()
-	print("iii")
+	f.write("Подключение клиента")
 	print(addr)
 
 	msg = ''
 
 	while True:
 		data = conn.recv(1024)
-		print("Приём данных от клиента")
+		f.write("Приём данных от клиента\n")
 		if not data:
 			break
 		elif data.decode() == "stop":
@@ -27,10 +30,11 @@ while True:
 		else:
 			msg += data.decode()
 			conn.send(data)
-			print("Отправка данных клиенту")
+			f.write("Отправка данных клиенту\n")
 
 	conn.close()
-	print("Отключение клиента")
+	f.write("Отключение клиента\n")
 
-print("Остановка сервера")
+f.write("Остановка сервера\n")
+f.close()
 sock.close()
