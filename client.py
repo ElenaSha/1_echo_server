@@ -37,14 +37,19 @@ while mark == 0:
 		print("Если вы хотите еще раз ввести номер порта, введите 1. Если нет - любую другую строку.")
 		ind = input()
 		if ind != "1":
-			port = 1025
+			port = 1024
 			mark = 1
-
-print("ATTENTION!!!!!!")
-print(host, " ", port)
 
 sock.connect((host, port))
 print("Соединение с сервером")
+
+#ввод имени/получение приветствия
+hi = sock.recv(1024)
+print(hi.decode())
+if hi.decode() == "Мы еще не знакомы. Введите ваше имя":
+	name = input()
+	sock.send(name.encode())
+	print(sock.recv(1024).decode())
 
 msg = input()
 print("Отправка данных серверу")
