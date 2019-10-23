@@ -5,11 +5,18 @@ f = open('server.log','a')
 sock = socket.socket()
 f.write("Запуск сервера\n")
 
-code = ""
+port = 1024
+
+while True:
+	try:
+		sock.bind(('',port))
+		break
+	except:
+			port+=1
+
+print("Порт №", port)
 
 
-
-sock.bind(('', 13245))
 f.write("Начало прослушивания порта\n")
 sock.listen(1)
 
